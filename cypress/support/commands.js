@@ -26,26 +26,6 @@
 
 import { generateUser } from '../support/ganagate.users';
 
-Cypress.Commands.add('findByPlaceholder', (placeholder) => {
-  cy.get(`[placeholder="${placeholder}"]`);
-});
-
-Cypress.Commands.add('findH1ByText', (text) => {
-  cy.get('h1').should('contain.text', text);
-});
-
-Cypress.Commands.add('checkSwalText', (text) => {
-  cy.get('.swal-text').should('contain.text', text);
-});
-
-Cypress.Commands.add('clickButWithClass', (className) => {
-  cy.get(`.${className}`).click();
-});
-
-Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
-  originalFn('/#' + url);
-});
-
 Cypress.Commands.add('registerNewUser', () => {
   const { email, username, password } = generateUser();
   cy.request('POST', '/users', {
@@ -66,16 +46,37 @@ Cypress.Commands.add('login', (user) => {
   });
 });
 
-
-Cypress.Commands.add('assertPageUrl', (url) => {
-  cy.url().should('equal', Cypress.config().baseUrl + url);
-});
-
 Cypress.Commands.add('registerAndLogin', () => {
   cy.registerNewUser().then((user) => {
     cy.login(user).then(() => user);
   });
 });
+
+
+Cypress.Commands.add('findByPlaceholder', (placeholder) => {
+  cy.get(`[placeholder="${placeholder}"]`);
+});
+
+Cypress.Commands.add('findH1ByText', (text) => {
+  cy.get('h1').should('contain.text', text);
+});
+
+Cypress.Commands.add('checkSwalText', (text) => {
+  cy.get('.swal-text').should('contain.text', text);
+});
+
+Cypress.Commands.add('clickButWithClass', (className) => {
+  cy.get(`.${className}`).click();
+});
+
+Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
+  originalFn('/#' + url);
+});
+
+Cypress.Commands.add('assertPageUrl', (url) => {
+  cy.url().should('equal', Cypress.config().baseUrl + url);
+});
+
 
 Cypress.Commands.add('findByCss', (selector) => {
   cy.get(selector);
@@ -101,6 +102,17 @@ Cypress.Commands.add('findByPlaceholderAndCheckValue', (placeholder, expectedVal
   cy.findByPlaceholder(placeholder)
     .should('have.value', expectedValue);
 });
+
+Cypress.Commands.add('clickSubmitButton', () => {
+  cy.get('button[type="submit"].btn.btn-lg.pull-xs-right.btn-primary')
+      .click();
+});
+
+Cypress.Commands.add('checkSwalTitle', () => {
+  cy.get('.swal-title').should('contain', 'Oops!');
+});
+
+
 
 //точно всі команди, які прописані тут, ти використовуєш?
 //якщо так, то ок. Якщо ні, то видали зайві команди
