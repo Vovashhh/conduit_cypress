@@ -19,19 +19,10 @@ describe('Articless page', () => {
     cy.clickSubmitButton()
 
     cy.assertPageUrl(`/#/articles/${expectedSlug}`);
-  });
-
-  it('Should allow creating a new article', () => {
-    const expectedSlug = title
-      .toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
-
-    cy.findByPlaceholder('Article Title').type(title)
-    cy.findByPlaceholder('What\'s this article about?').type(description)
-    cy.findByPlaceholder('Write your article (in markdown)').type(article)
-    cy.findByPlaceholder('Enter tags').type('test')
-    cy.clickSubmitButton()
-
-    cy.assertPageUrl(`/#/articles/${expectedSlug}`);
+    cy.findH1ByText(title)
+    cy.checkTextInDiv(article)
+    cy.visit('/')
+    cy.checkTextOnPage(description)
   });
 
   it('Should allow creating a new article with long article', () => {
@@ -84,6 +75,6 @@ describe('Articless page', () => {
 
 //більше тестів, наприклад, на створення коменту, видалення коменту, редагування коменту,
 
-
+// Тут баг с тегами, по этому не знаю как добавить проверку что они добавляются
 
 

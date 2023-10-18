@@ -112,6 +112,17 @@ Cypress.Commands.add('checkSwalTitle', () => {
   cy.get('.swal-title').should('contain', 'Oops!');
 });
 
+Cypress.Commands.add('checkTextInDiv', (expectedText) => {
+  cy.get('.row.article-content').should('contain', expectedText);
+});
+
+Cypress.Commands.add('checkTextOnPage', (text) => {
+  cy.get('body').should('contain', text);
+});
+
+
+
+
 
 
 //точно всі команди, які прописані тут, ти використовуєш?
